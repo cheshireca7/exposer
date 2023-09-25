@@ -1,0 +1,23 @@
+version: '3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_USERNAME=$USERNAME
+      - ELASTIC_PASSWORD=$PASSWORD
+      - network.host=$URL
+    ports:
+      - "$PORT:9200"
+    networks: ['exposer']
+
+  exposer:
+    build:
+      context: ./exposer
+    container_name: exposer
+    depends_on:
+      - elasticsearch
+
+networks:
+  exposer: {}
