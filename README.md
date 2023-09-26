@@ -5,7 +5,8 @@ exposer is a go tool supported by <a href="https://github.com/projectdiscovery/u
 exposer requires a running Elasticsearch cluster to work properly. Information required to establish communication should be specified in `config.yaml`, or `.env` if running exposer via **docker-compose**.
 
 ## Provider Configuration
-For uncover to run properly, it requires API keys to the different search engiens to be used. 
+
+Uncover requires API keys to the different search engiens to be used. Exposer will not run until one API key is specified at least.
 The provider configuration file should be located at `$HOME/.config/uncover/provider-config.yaml`
 
 # Install
