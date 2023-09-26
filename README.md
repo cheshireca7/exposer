@@ -9,6 +9,8 @@ exposer is a go tool supported by <a href="https://github.com/projectdiscovery/u
   <a href="#running-exposer">Running Exposer</a>
 </p>
 
+---
+
 # Dependencies
 exposer requires a running Elasticsearch cluster to work properly. Information required to establish communication should be specified in `config.yaml`, or `.env` if running exposer via **docker-compose**.
 
