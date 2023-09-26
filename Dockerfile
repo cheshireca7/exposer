@@ -1,20 +1,23 @@
-# Use the official Go image as the base image
+# Go image as the base image
 FROM golang:latest
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Go source code into the container
+# Copy source code to the container
 COPY . .
 
-# Build the Go application inside the container
+# Install dependencies
+RUN apt-get update && apt-get install -y vim
+RUN go install github.com/projectdiscovery/uncover/cmd/uncover@latest
+
+# Build the Go application
 RUN go mod download
-RUN go build -o exposer -ldflags "-s -w" main.go
-RUN chmod +x exposer
-RUN mv /app/exposer /usr/local/bin
-RUN mkdir -p ~/.config/uncover
-RUN mv /app/provider-config.yaml ~/.config/uncover
+RUN go build -o /usr/local/bin/exposer -ldflags "-s -w" main.go
+RUN chmod +x /usr/local/bin/exposer
+
+# Generate config.yaml from .env
 RUN sed "s/=/: /g" /app/.env > /app/config.yaml
 
-# Run Command
-ENTRYPOINT ["exposer", "-h"]
+# Command
+CMD ["exposer", "-h"]
