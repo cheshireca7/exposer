@@ -1,5 +1,5 @@
-# Exp👁️ser
-exposer is a go tool supported by <a href="https://github.com/projectdiscovery/uncover">uncover</a> to perform query monitoring to different search engines, and storing results in Elasticsearch.
+<h1 align="center">Exp👁️ser</h1>
+<h4 align="center">exposer is a go tool supported by <a href="https://github.com/projectdiscovery/uncover">uncover</a> to perform query monitoring to different search engines, and storing results in Elasticsearch.</h4>
 
 <p align="center">
   <a href="#dependencies">Dependencies</a> •
