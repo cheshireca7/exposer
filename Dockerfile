@@ -17,7 +17,7 @@ RUN go build -o /usr/local/bin/exposer -ldflags "-s -w" main.go
 RUN chmod +x /usr/local/bin/exposer
 
 # Generate config.yaml from .env
-RUN sed "s/=/: /g" /app/.env > /app/config.yaml
+RUN sed "s/=/: /g" /app/docker/.env > /app/config.yaml
 
 # Command
 CMD ["exposer", "-h"]
