@@ -4,7 +4,7 @@
 <p align="center">
   <a href="#dependencies">Dependencies</a> •
   <a href="#installation-instructions">Installation</a> •
-  <a href="#installation-with-Docker">Installation</a> •
+  <a href="#installation-with-docker">Installation with Docker</a> •
   <a href="#usage">Usage</a> •
   <a href="#running-exposer">Running Exposer</a>
 </p>
@@ -32,7 +32,7 @@ go install -v github.com/cheshireca7/exposer@latest
 exposer -h
 ```
 
-# Install with Docker
+# Installation with Docker
 exposer has its own image that could be downloaded from Docker Hub
 
 ```sh
