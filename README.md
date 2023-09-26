@@ -5,12 +5,8 @@ exposer is a go tool supported by <a href="https://github.com/projectdiscovery/u
 exposer requires a running Elasticsearch cluster to work properly. Information required to establish communication should be specified in `config.yaml`, or `.env` if running exposer via **docker-compose**.
 
 ## Provider Configuration
-
 For uncover to run properly, it requires API keys to the different search engiens to be used. 
 The provider configuration file should be located at `$HOME/.config/uncover/provider-config.yaml`
-
-If running with **docker**, keys should be specified within the exposer container
-
 
 # Install
 exposer requires **go1.21** to install successfully. Run the following command to get the repo -
@@ -25,9 +21,25 @@ go install -v github.com/cheshireca7/exposer@latest
 exposer -h
 ```
 
-## Running Exposer
+# Install with docker
+exposer has its own image that could be downloaded from Docker Hub
 
-Default run require a query and an engine to be specified.
+```sh
+docker pull cheshireca7/exposer
+```
+Keys should be specified within the exposer container
+
+```sh
+docker run -it exposer exposer vim ~/.config/uncover/provider-config.yaml
+```
+## Usage
+
+```sh
+docker run -it exposer exposer -h
+```
+
+## Running Exposer
+Default run just require a query
 
 ```console
 exposer -q 'ssl:hackerone.com'
