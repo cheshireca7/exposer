@@ -1,6 +1,14 @@
 # Exp👁️ser
 exposer is a go tool supported by <a href="https://github.com/projectdiscovery/uncover">uncover</a> to perform query monitoring to different search engines, and storing results in Elasticsearch.
 
+<p align="center">
+  <a href="#dependencies">Dependencies</a> •
+  <a href="#installation-instructions">Installation</a> •
+  <a href="#installation-with-Docker">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#running-exposer">Running Exposer</a>
+</p>
+
 # Dependencies
 exposer requires a running Elasticsearch cluster to work properly. Information required to establish communication should be specified in `config.yaml`, or `.env` if running exposer via **docker-compose**.
 
@@ -9,7 +17,7 @@ exposer requires a running Elasticsearch cluster to work properly. Information r
 Uncover requires API keys to the different search engiens to be used. Exposer will not run until one API key is specified at least.
 The provider configuration file should be located at `$HOME/.config/uncover/provider-config.yaml`
 
-# Install
+# Installation Instructions
 exposer requires **go1.21** to install successfully. Run the following command to get the repo -
 
 ```sh
@@ -22,7 +30,7 @@ go install -v github.com/cheshireca7/exposer@latest
 exposer -h
 ```
 
-# Install with docker
+# Install with Docker
 exposer has its own image that could be downloaded from Docker Hub
 
 ```sh
@@ -39,7 +47,7 @@ docker run -it exposer exposer vim ~/.config/uncover/provider-config.yaml
 docker run -it exposer exposer -h
 ```
 
-## Running Exposer
+# Running Exposer
 Default run just require a query
 
 ```console
