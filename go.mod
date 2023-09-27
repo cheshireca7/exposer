@@ -1,4 +1,4 @@
-module exposer/exposer
+module exposer
 
 go 1.21.1
 
