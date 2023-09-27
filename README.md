@@ -43,6 +43,12 @@ Keys should be specified within the exposer container
 ```sh
 docker run -it exposer exposer vim ~/.config/uncover/provider-config.yaml
 ```
+
+Get the certificate from the elsatic container
+```sh
+docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+```
+
 ## Usage
 
 ```sh
