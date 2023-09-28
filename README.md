@@ -26,30 +26,49 @@ exposer requires **go1.21** to install successfully. Run the following command t
 go install -v github.com/cheshireca7/exposer@latest
 ```
 
-## Usage
+## Before runnning
+1. Edit `$HOME/.config/uncover/provider-config.yaml` with API keys for search engines.
+2. Edit `$HOME/.config/exposer/config.yaml` file with the data regarding Elasticsearch communication. As an example:
 
-```sh
-exposer -h
+```yaml
+URL: localhost
+PORT: 9200
+USERNAME: elastic
+PASSWORD: elastic
 ```
 
-# Installation with Docker
+3. Set the Elasticsearch CA to be at `$HOME/.config/exposer/http_ca.crt`
+
+## Docker
 exposer has its own image that could be downloaded from Docker Hub
 
 ```sh
 docker pull cheshireca7/exposer
 ```
-Keys should be specified within the exposer container
 
+### Before runnning
+1. Edit `$HOME/.config/uncover/provider-config.yaml` with API keys for search engines.
 ```sh
-docker run -it exposer exposer vim ~/.config/uncover/provider-config.yaml
+docker run -it exposer vim ~/.config/uncover/provider-config.yaml
 ```
 
-Get the certificate from the elsatic container
+2. Edit `$HOME/.config/exposer/config.yaml` file with the data regarding Elasticsearch communication.
 ```sh
-docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+docker run -it exposer vim ~/.config/exposer/config.yaml
 ```
 
-## Usage
+3. Get the certificate from the elasticsearch container and upload it to the exposer container
+```sh
+docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt exposer:/root/.config/exposer/http_ca.crt
+```
+
+# Usage
+
+```sh
+exposer -h
+```
+
+## Docker 
 
 ```sh
 docker run -it exposer exposer -h
