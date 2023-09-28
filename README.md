@@ -74,7 +74,7 @@ By running docker-compose, it will load a clear elasticsearch container, as well
 exposer -h
 ```
 
-## Docker 
+### Docker 
 
 ```sh
 docker run -it exposer exposer -h
