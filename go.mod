@@ -1,4 +1,4 @@
-module exposer
+module github.com/cheshireca7/exposer
 
 go 1.21.1
 
