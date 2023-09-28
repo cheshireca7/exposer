@@ -26,7 +26,7 @@ exposer requires **go1.21** to install successfully. Run the following command t
 go install -v github.com/cheshireca7/exposer@latest
 ```
 
-## Before runnning
+### Before runnning
 1. Edit `$HOME/.config/uncover/provider-config.yaml` with API keys for search engines.
 2. Edit `$HOME/.config/exposer/config.yaml` file with the data regarding Elasticsearch communication. As an example:
 
@@ -61,6 +61,12 @@ docker run -it exposer vim ~/.config/exposer/config.yaml
 ```sh
 docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt exposer:/root/.config/exposer/http_ca.crt
 ```
+
+## Docker compose
+By running docker-compose, it will load a clear elasticsearch container, as well as exposer at once. 
+
+1. Credentials for Elasticsearch communication should be set at `docker/.env` file, then run `docker-compose up -d`
+2. Edit `$HOME/.config/uncover/provider-config.yaml` with API keys for search engines.
 
 # Usage
 
