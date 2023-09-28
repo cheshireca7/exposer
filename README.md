@@ -104,3 +104,7 @@ a8P_____88   `Y8, ,8P'   88P'    "8a  a8"     "8a  I8[    ""  a8P_____88  88P'  
 [INF] Number of entries stored: 4
 
 ```
+# TODO
+
+[ ] Interactive console to get more information about stored results
+[ ] Improve installation
