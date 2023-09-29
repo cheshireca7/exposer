@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y vim
 
 # Build the Go application
 RUN go mod download
-RUN go build -o /usr/local/bin/exposer -ldflags "-s -w" main.go
+RUN go build -o /usr/local/bin/exposer -ldflags "-s -w" exposer.go
 RUN chmod +x /usr/local/bin/exposer
 
 # Generate config.yaml from .env
