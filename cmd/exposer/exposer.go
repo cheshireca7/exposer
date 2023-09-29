@@ -89,7 +89,8 @@ func trapSigs() {
     
 		switch sig {
 		case os.Interrupt:
-			log.Println("\n[" + yellow("WRNG") + "] SIGINT detected, exiting ...")
+			fmt.Println()
+			log.Println("[" + yellow("WRNG") + "] SIGINT detected, exiting ...")
 			os.Exit(1)
 	    	case syscall.SIGTERM:
 		        fmt.Println("Killing ...")
@@ -103,7 +104,7 @@ func banner() {
 
 	b64_banner := "ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQogLGFkUFBZYmEsICA4YiwgICAgICxkOCAgOGIsZFBQWWJhLCAgICAsYWRQUFliYSwgICAsYWRQUFliYSwgICAsYWRQUFliYSwgIDhiLGRQUFliYSwgIA0KYThQX19fX184OCAgIGBZOCwgLDhQJyAgIDg4UCcgICAgIjhhICBhOCIgICAgICI4YSAgSThbICAgICIiICBhOFBfX19fXzg4ICA4OFAnICAgIlk4ICANCjhQUCIiIiIiIiIgICAgICk4ODgoICAgICA4OCAgICAgICBkOCAgOGIgICAgICAgZDggICBgIlk4YmEsICAgOFBQIiIiIiIiIiAgODggICAgICAgICAgDQoiOGIsICAgLGFhICAgLGQ4IiAiOGIsICAgODhiLCAgICxhOCIgICI4YSwgICAsYTgiICBhYSAgICBdOEkgICI4YiwgICAsYWEgIDg4ICAgICAgICAgIA0KIGAiWWJiZDgiJyAgOFAnICAgICBgWTggIDg4YFliYmRQIicgICAgYCJZYmJkUCInICAgYCJZYmJkUCInICAgYCJZYmJkOCInICA4OCAgICAgICAgICANCiAgICAgICAgICAgICAgICAgICAgICAgICA4OCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQogICAgICAgICAgICAgICAgICAgICAgICAgODggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA=="
 	decodedBytes, _ := base64.StdEncoding.DecodeString(b64_banner)
-	fmt.Println(string(decodedBytes) + cyan("\n\n-- Monitor your favorite services exposed to the Internet 👀\n\n"))
+	gologger.Print().Msgf("%s" + cyan("\n\n-- Monitor your favorite services exposed to the Internet 👀") + "\n\n", decodedBytes)
 
 }
 
@@ -385,7 +386,7 @@ func main() {
 	set := goflags.NewFlagSet()
 	set.SetDescription(`Monitor services on the Internet in real time and store results to Elasticsearch`)
 	set.StringVarP(&opt.query, "query", "q", "", "Search query")
-	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time wait per search (in seconds)")
+	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time to wait per search (in seconds)")
 	set.BoolVarP(&opt.noBanner, "no-banner", "nb", false, "Hide the beautiful banner")
 	set.StringVarP(&opt.configFile, "configfile", "cf", filepath.Join(folderutil.HomeDirOrDefault("."), ".config/exposer/config.yaml"), "Specify the config file for Elasticsearch")
 	set.StringVarP(&opt.engine, "engine", "e", "shodan", "Search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas,publicwww,criminalip,hunterhow,all) (default shodan)")
@@ -396,7 +397,7 @@ func main() {
 		log.Fatalf("%s\n", err)
 	}
 
-	// Hie banner if requested
+	// Hide banner if requested
 	if !opt.noBanner { 
 		banner()
 	}	
