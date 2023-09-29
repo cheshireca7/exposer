@@ -386,7 +386,7 @@ func main() {
 	set := goflags.NewFlagSet()
 	set.SetDescription(`Monitor services on the Internet in real time and store results to Elasticsearch`)
 	set.StringVarP(&opt.query, "query", "q", "", "Search query")
-	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time to wait per search (in seconds)")
+	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time to wait per search in seconds")
 	set.BoolVarP(&opt.noBanner, "no-banner", "nb", false, "Hide the beautiful banner")
 	set.StringVarP(&opt.configFile, "configfile", "cf", filepath.Join(folderutil.HomeDirOrDefault("."), ".config/exposer/config.yaml"), "Specify the config file for Elasticsearch")
 	set.StringVarP(&opt.engine, "engine", "e", "shodan", "Search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas,publicwww,criminalip,hunterhow,all)")
@@ -423,7 +423,7 @@ func main() {
 		var data map[string]interface{}
 		dataJson := []byte(result.JSON())
 		if err := json.Unmarshal(dataJson, &data); err != nil {
-			showMessage("error", []string{"Unable to parse JSON data from uncover resutls"})
+			showMessage("error", []string{"Unable to parse JSON data from uncover results"})
 			log.Fatalf("%s\n", err)
 		}
 		
