@@ -17,7 +17,6 @@ RUN chmod +x /usr/local/bin/exposer
 
 # Generate config.yaml from .env
 RUN mkdir -p /root/.config/exposer
-RUN sed "s/=/: /g" /app/docker/.env > /root/.config/exposer/config.yaml
 
 # Command
 CMD ["exposer", "-h"]
