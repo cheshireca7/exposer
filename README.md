@@ -28,16 +28,16 @@ go install -v github.com/cheshireca7/exposer@latest
 
 ### Before runnning
 1. Edit `$HOME/.config/uncover/provider-config.yaml` with API keys for search engines.
-2. Edit `$HOME/.config/exposer/config.yaml` file with the data regarding Elasticsearch communication. As an example:
+2. Edit `config.yaml` file with the data regarding Elasticsearch communication, then move it to `$HOME/.config/exposer/`. An example configuration file could be as follows:
 
 ```yaml
-URL: localhost
-PORT: 9200
-USERNAME: elastic
-PASSWORD: elastic
+URL: "localhost:9200"
+PROXY: "127.0.0.1:8080"
+USERNAME: "elastic"
+PASSWORD: "elastic"
 ```
 
-3. Set the Elasticsearch CA to be at `$HOME/.config/exposer/http_ca.crt`
+3. If required, move the Elasticsearch CA to be at `$HOME/.config/exposer/http_ca.crt`. Otherwise, exposer will accept insecure certificates, but it is not recommended.
 
 ## Docker
 exposer has its own image that could be downloaded from Docker Hub
@@ -58,6 +58,7 @@ docker run -it exposer vim ~/.config/exposer/config.yaml
 ```
 
 3. Get the certificate from the elasticsearch container and upload it to the exposer container
+
 ```sh
 docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt exposer:/root/.config/exposer/http_ca.crt
 ```
@@ -77,7 +78,7 @@ exposer -h
 ### Docker 
 
 ```sh
-docker run -it exposer exposer -h
+docker run --net host -it exposer exposer -h
 ```
 
 # Running Exposer
