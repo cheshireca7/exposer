@@ -11,11 +11,13 @@ import (
 	"syscall"
 	"time"
 	"io/ioutil"
-	"net/http"
-	"crypto/tls"
 	"encoding/json"
 	"encoding/base64"
 	"sort"
+	"path/filepath"
+	"net/http"
+	"net/url"
+	"crypto/tls"
 
 	"gopkg.in/yaml.v3"
 	"github.com/projectdiscovery/gologger"
@@ -25,6 +27,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/fatih/color"
+	folderutil "github.com/projectdiscovery/utils/folder"
 )
 
 // STRUCTS
@@ -37,10 +40,10 @@ type options struct {
 }
 
 type ElasticConfig struct {
-    	URL      string `yaml:"URL"`
-    	PORT     string `yaml:"PORT"`
+    	URL string `yaml:"URL"`
     	USERNAME string `yaml:"USERNAME"`
     	PASSWORD string `yaml:"PASSWORD"`
+	PROXY string `yaml:"PROXY"`
 }
 
 type Entry struct {
@@ -170,15 +173,28 @@ func elasticSearchInit(cf string) (*elasticsearch.Client, context.Context, strin
 	}
 
 	// Configure Elasticsearch client
+	cert, _ := ioutil.ReadFile(filepath.Join(folderutil.HomeDirOrDefault("."), ".config/exposer/http_ca.crt"))
 	cfg := elasticsearch.Config{
-		Addresses: []string{"https://" + elasticConfig.URL + ":" + elasticConfig.PORT},
+		Addresses: []string{"https://" + elasticConfig.URL},
 		Username:  elasticConfig.USERNAME,
 		Password:  elasticConfig.PASSWORD,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		},
+	}
+
+	// Check if certificate has been specified
+	if cert != nil {
+		cfg.CACert = cert
+	}else{
+		// Set the elasticsearch configuration to accept insecure certificate
+		Transport := &http.Transport{
+        		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    		}
+		
+		// If specified, set the elasticsearch configuration to send requests via proxy
+		if elasticConfig.PROXY != "" {
+			proxy, _ := url.Parse("http://" + elasticConfig.PROXY)
+			Transport.Proxy = http.ProxyURL(proxy)
+		}
+		cfg.Transport = Transport 
 	}
 
 	// Initiallize client
@@ -371,7 +387,7 @@ func main() {
 	set.StringVarP(&opt.query, "query", "q", "", "Search query")
 	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time wait per search (in seconds)")
 	set.BoolVarP(&opt.noBanner, "no-banner", "nb", false, "Hide the beautiful banner")
-	set.StringVarP(&opt.configFile, "configfile", "cf", "config.yaml", "Specify the config file for Elasticsearch")
+	set.StringVarP(&opt.configFile, "configfile", "cf", filepath.Join(folderutil.HomeDirOrDefault("."), ".config/exposer/config.yaml"), "Specify the config file for Elasticsearch")
 	set.StringVarP(&opt.engine, "engine", "e", "shodan", "Search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas,publicwww,criminalip,hunterhow,all) (default shodan)")
 
 	// Parse user falgs
