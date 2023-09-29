@@ -39,7 +39,7 @@ PASSWORD: "elastic"
 
 3. If required, move the Elasticsearch CA to be at `$HOME/.config/exposer/http_ca.crt`. Otherwise, exposer will accept insecure certificates, but it is not recommended.
 
-## Docker
+## Docker (WIP)
 exposer has its own image that could be downloaded from Docker Hub
 
 ```sh
