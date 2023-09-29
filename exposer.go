@@ -389,7 +389,7 @@ func main() {
 	set.IntVarP(&opt.updateTime, "update-time", "ut", 10, "Time to wait per search (in seconds)")
 	set.BoolVarP(&opt.noBanner, "no-banner", "nb", false, "Hide the beautiful banner")
 	set.StringVarP(&opt.configFile, "configfile", "cf", filepath.Join(folderutil.HomeDirOrDefault("."), ".config/exposer/config.yaml"), "Specify the config file for Elasticsearch")
-	set.StringVarP(&opt.engine, "engine", "e", "shodan", "Search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas,publicwww,criminalip,hunterhow,all) (default shodan)")
+	set.StringVarP(&opt.engine, "engine", "e", "shodan", "Search engine (shodan,shodan-idb,fofa,censys,quake,hunter,zoomeye,netlas,publicwww,criminalip,hunterhow,all)")
 
 	// Parse user falgs
 	if err := set.Parse(); err != nil {
